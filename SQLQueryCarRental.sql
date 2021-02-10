@@ -52,3 +52,4 @@ VALUES ('Kırmızı'),
 
 --Delete Brands
 --Delete Cars
+--Delete Colors

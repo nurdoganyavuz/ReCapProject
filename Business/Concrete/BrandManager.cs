@@ -18,7 +18,15 @@ namespace Business.Concrete
 
         public void Add(Brand brand)
         {
-            _brandDal.Add(brand);
+            if (brand.BrandName.Length > 2)
+            {
+                _brandDal.Add(brand);
+            }
+        }
+
+        public List<Brand> GetAllBrands()
+        {
+            return _brandDal.GetAll();
         }
     }
 }
