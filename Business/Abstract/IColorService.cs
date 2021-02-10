@@ -7,8 +7,12 @@ namespace Business.Abstract
 {
     public interface IColorService
     {
+        Color GetById(int id); 
+
         List<Color> GetAllColors();
 
         void Add(Color color);
+
+        void Delete(Color color);
     }
 }

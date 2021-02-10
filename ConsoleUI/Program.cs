@@ -26,7 +26,7 @@ namespace ConsoleUI
             Console.WriteLine("==========CAR CRUD OPERATION TEST==========");
 
             //carManager.Add(cars); //db'e yeni araba ekleme
-            
+            //carManager.Delete(carManager.GetById(20)); //db'den ıd'si verilen arabayı silme
 
             Console.WriteLine("----------Bütün Arabaları Listeleme----------");
             foreach (var car in carManager.GetAll())
@@ -60,14 +60,15 @@ namespace ConsoleUI
             foreach (var carDetail in carManager.GetCarDetails())
             {
                 Console.WriteLine("Araba Adı: " + carDetail.CarName +
-                                  " Marka Adı: " + carDetail.BrandName +
-                                  " Renk: " + carDetail.ColorName +
-                                  " Günlük Ücret: " + carDetail.DailyPrice);
+                                  " / Marka Adı: " + carDetail.BrandName +
+                                  " / Renk: " + carDetail.ColorName +
+                                  " / Günlük Ücret: " + carDetail.DailyPrice);
             }
 
             Console.WriteLine("==========BRAND CRUD OPERATION TEST==========");
 
             //brandManager.Add(brand); //marka ekleme
+            //brandManager.Delete(brandManager.GetById(6)); //ıd'si verilen markayı db'den silme
 
             Console.WriteLine("----------Bütün Markaları Listeleme----------");
 
@@ -79,6 +80,7 @@ namespace ConsoleUI
             Console.WriteLine("==========COLOR CRUD OPERATION TEST==========");
 
             //colorManager.Add(color); //renk ekleme
+            //colorManager.Delete(colorManager.GetById(7)); //db'den renk silme
 
             Console.WriteLine("----------Bütün Renkleri Listeleme----------");
 

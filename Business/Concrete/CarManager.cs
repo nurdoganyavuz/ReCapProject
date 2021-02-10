@@ -35,13 +35,10 @@ namespace Business.Concrete
             
         }
 
-        //public void Delete(List<Car> cars)
-        //{
-        //    foreach (var car in cars)
-        //    {
-        //        _carDal.Delete(car);
-        //    }
-        //}
+        public void Delete(Car car)
+        {
+            _carDal.Delete(car);
+        }
 
         public List<Car> GetAll()
         {
@@ -53,6 +50,11 @@ namespace Business.Concrete
         public List<Car> GetByDailyPrice(decimal min, decimal max) //verilen fiyat aralıgındaki arabaları listeler.
         {
             return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
+        }
+
+        public Car GetById(int id) //ıd'si verilen aracı getirir.
+        {
+            return _carDal.Get(c => c.Id == id);
         }
 
         public List<CarDetailDto> GetCarDetails()
