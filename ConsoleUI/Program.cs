@@ -14,6 +14,9 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            UserManager userManager = new UserManager(new EfUserDal());
 
             //TABLOLARA EKLENECEK VERİLER
             Car car1 = new Car() { BrandId = 5, ColorId = 3, CarName = "Cabrio", DailyPrice = 1500, Description  = "Otomatik", ModelYear = "2020" } ;
@@ -22,8 +25,62 @@ namespace ConsoleUI
             Car car4 = new Car() { BrandId = 4, ColorId = 2, CarName = "GLK", DailyPrice = 1500, Description = "Otomatik", ModelYear = "2019" };
             Brand brand = new Brand() { BrandName = "Hyundai" };
             Color color = new Color() { ColorName = "Silver"};
+            User user = new User() { UserFirstName = "Engin", UserLastName = "Demiroğ", Email = "engin.demirog@gmail.com", Password = "cıplakclasskalmasın" };
+            Rental rental = new Rental() {CarId = 1, CustomerId = 4, RentDate = new DateTime(2021, 4, 4), ReturnDate = new DateTime(2021, 4, 14)};
+            Rental rental1 = new Rental() { CarId = 2, CustomerId = 4, RentDate = new DateTime(2021, 5, 6), ReturnDate = new DateTime(2021, 5, 16) };
+            Customer customer = new Customer() {UserId = (userManager.GetById(2).Data.UserId), CompanyName = "SolidTeam"};
 
-            
+
+            Console.WriteLine("==========USER CRUD OPERATION TEST==========");
+
+            //User Ekleme
+            //var userAdd = userManager.Add(user);
+            //if (userAdd.Success == true)
+            //{
+            //    Console.WriteLine(userAdd.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(userAdd.Message);
+            //}
+
+            //user silme
+            //userManager.Delete(userManager.GetById(1).Data);
+
+            Console.WriteLine("==========CUSTOMER CRUD OPERATION TEST==========");
+            //customer ekleme
+            //var addCustomer = customerManager.Add(customer);
+            //if (addCustomer.Success)
+            //{
+            //    Console.WriteLine(addCustomer.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(addCustomer.Message);
+            //}
+
+            Console.WriteLine("==========RENTAL CRUD OPERATION TEST==========");
+
+            //kiralama bilgisi ekleme
+            //var rentalAdd = rentalManager.Add(rental);
+            //if (rentalAdd.Success)
+            //{
+            //    Console.WriteLine(rentalAdd.Message);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(rentalAdd.Message);
+            //}
+
+            Console.WriteLine("Kiralama Detayları");
+
+            var rentalDetail = rentalManager.GetRentalDetail().Data;
+            foreach (var item in rentalDetail)
+            {
+                Console.WriteLine(item.CarName + " " + item.RentDate + " - " + item.ReturnDate + " tarihleri arasında " + 
+                    item.UserFirstName + " " + item.UserLastName + " tarafından kiralanmıştır.");
+            }
+
             Console.WriteLine("==========CAR CRUD OPERATION TEST==========");
 
             //Console.WriteLine("----------Araba Ekleme----------");

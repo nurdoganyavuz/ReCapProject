@@ -47,5 +47,15 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.ColorId == id));
         }
+
+        public IResult Update(Color color)
+        {
+            if (color.ColorName.Length < 3)
+            {
+                return new ErrorResult(Messages.InvalidParameters);
+            }
+            _colorDal.Update(color);
+            return new SuccessResult(Messages.UpdatedMessage);
+        }
     }
 }
