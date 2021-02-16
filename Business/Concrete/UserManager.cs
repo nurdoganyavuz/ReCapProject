@@ -37,10 +37,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserDeletedMessage);
         }
 
-        public IDataResult<User> Get(User user)
-        {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == user.UserId));
-        }
+        //public IDataResult<User> Get(User user)
+        //{
+        //    return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == user.UserId));
+        //}
         //UserFirstName == user.UserFirstName && u.UserLastName == user.UserLastName && u.Email == user.Email && u.Password == user.Password
 
 

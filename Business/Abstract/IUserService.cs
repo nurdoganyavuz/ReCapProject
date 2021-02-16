@@ -12,8 +12,6 @@ namespace Business.Abstract
 
         IDataResult<List<User>> GetAllUsers();
 
-        IDataResult<User> Get(User user);
-
         IResult Add(User user);
 
         IResult Delete(User user);
