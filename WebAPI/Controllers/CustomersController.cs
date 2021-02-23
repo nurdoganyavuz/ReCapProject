@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             var result = _customerService.GetAllCustomers();
-            if (result.Success == true)
+            if (result.Success)
             {
                 return Ok(result);
             }

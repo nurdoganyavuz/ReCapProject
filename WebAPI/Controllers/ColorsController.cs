@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAll()
         {
             var result = _colorService.GetAllColors(); //IColorService'deki hangi operasyon yapılacaksa o methodun ismini kullanırız. Bu operasyon serviste GetAllColors olarak tanımlı, GetAll olarak değil.
-            if (result.Success == true)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -64,7 +64,7 @@ namespace WebAPI.Controllers
         public IActionResult GetById(int id)
         {
             var result = _colorService.GetById(id);
-            if (result.Success == true)
+            if (result.Success)
             {
                 return Ok(result);
             }
