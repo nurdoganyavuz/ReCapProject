@@ -36,5 +36,6 @@ namespace Business.Constants
         public static string RentalNotDeleted = "Araba teslim alınmadığı için kiralanma bilgisi silinemez.";
         public static string RentalNotAdded = "Araba henüz teslim alınmadığı için kiralanamaz.";
         public static string RentalAdded = "Araba kiralanmıştır.";
+
     }
 }
