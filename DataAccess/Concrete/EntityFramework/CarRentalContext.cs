@@ -25,6 +25,8 @@ namespace DataAccess.Concrete.EntityFramework
 
         public DbSet<Rental> Rentals { get; set; }
 
+        public DbSet<CarImage> CarImages { get; set; }
+
     }
 }
 //Context -- Db tabloları ile proje classlarını ilişkilendirme.

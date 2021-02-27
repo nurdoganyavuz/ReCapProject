@@ -58,6 +58,17 @@ CREATE TABLE Rentals (
 
 )
 
+CREATE TABLE CarImages(
+
+    [ImageId] INT IDENTITY (1,1) NOT NULL,
+    [CarId] INT NOT NULL,
+    [ImagePath] NVARCHAR (50) NOT NULL,
+    [ImageUploadDate] DATETIME NOT NULL
+    PRIMARY KEY CLUSTERED ([ImageId] ASC),
+    CONSTRAINT [FK_CarImages_Cars] FOREIGN KEY ([CarId]) REFERENCES [dbo].[Cars] ([Id])
+
+)
+
 INSERT INTO Cars
 VALUES (1, 1, 'Octavia','2014', 450, 'Manuel'),
        (1, 2, 'Fabia', '2015', 550, 'Manuel'),
