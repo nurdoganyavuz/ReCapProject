@@ -37,5 +37,12 @@ namespace Business.Constants
         public static string RentalNotAdded = "Araba henüz teslim alınmadığı için kiralanamaz.";
         public static string RentalAdded = "Araba kiralanmıştır.";
 
+        public static string ImageLimitExceded = "Bir araba için en fazla 5 adet görsel eklenebilir.";
+        public static string CarImageUploaded = "Görsel sisteme eklendi.";
+        public static string NotFoundImage = "Görsel bulunamadı.";
+        public static string CarImageDeleted = "Görsel sistemden silindi";
+        public static string CarImageUpdated = "Görsel güncellendi.";
+
+        public static object CarImagesListed { get; internal set; }
     }
 }
