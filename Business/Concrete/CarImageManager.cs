@@ -42,7 +42,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageUploaded);
         }
 
-        
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimitExceded(carImage.CarId), CheckImage(carImage.CarImageId));
