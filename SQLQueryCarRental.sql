@@ -27,13 +27,32 @@ CREATE TABLE Colors(
 
 CREATE TABLE Users
 (
-	[UserId]        INT           IDENTITY (1, 1) NOT NULL,
-    [UserFirstName] NVARCHAR (25) NOT NULL,
-    [UserLastName]  NVARCHAR (25) NOT NULL,
-    [Email]         NVARCHAR (50) NOT NULL,
-    [Password]      NVARCHAR (50) NOT NULL,
-    PRIMARY KEY CLUSTERED ([UserId] ASC)
+	[Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [UserFirstName] VARCHAR (50) NOT NULL,
+    [UserLastName]  VARCHAR (50) NOT NULL,
+    [Email]         VARCHAR (50) NOT NULL,
+    [PasswordHash]      VARBINARY (500) NOT NULL,
+    [PasswordSalt]      VARBINARY (500) NOT NULL,
+    [Status] BIT NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 )
+CREATE TABLE OperationClaims
+(
+	[Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [Name] VARCHAR (250) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+CREATE TABLE UserOperationClaims
+(
+	[Id]        INT           IDENTITY (1, 1) NOT NULL,
+    [UserId] INT  NOT NULL,
+    [OperationClaimId] INT  NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_UserOperationClaims_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id]),
+    CONSTRAINT [FK_UserOperationClaims_OperationClaims] FOREIGN KEY ([OperationClaimId]) REFERENCES [dbo].[OperationClaims] ([Id])
+
+)
+
 
 CREATE TABLE Customers
 (
@@ -41,7 +60,7 @@ CREATE TABLE Customers
     [UserId]      INT           NOT NULL,
     [CompanyName] NVARCHAR (25) NOT NULL,
     PRIMARY KEY CLUSTERED ([CustomerId] ASC),
-    CONSTRAINT [FK_Customers_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([UserId])
+    CONSTRAINT [FK_Customers_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
    
 )
 
@@ -69,33 +88,10 @@ CREATE TABLE CarImages(
 
 )
 
-INSERT INTO Cars
-VALUES (1, 1, 'Octavia','2014', 450, 'Manuel'),
-       (1, 2, 'Fabia', '2015', 550, 'Manuel'),
-       (2, 2, 'Clio', '2016', 560, 'Otomatik'),
-       (2, 3, 'Duster', '2017', 650, 'Manuel'),
-       (3, 3, 'Q7', '2018', 750, 'Otomatik'),
-       (3, 4, 'Q8', '2018', 670, 'Manuel'),
-       (4, 5, 'Citan', '2019', 750, 'Otomatik'),
-       (4, 5, 'GLE', '2020', 950, 'Otomatik'),
-       (5, 6, 'Sedan', '2012', 550, 'Manuel'),
-       (5, 6, 'Roadster', '2019', 850, 'Otomatik');
-
-INSERT INTO Brands
-VALUES ('Skoda'),
-       ('Renault'),
-       ('Audi'),
-       ('Mercedes'),
-       ('BMW');
-
-INSERT INTO Colors
-VALUES ('Kırmızı'),
-       ('Lacivert'),
-       ('Siyah'),
-       ('Yeşil'),
-       ('Beyaz'),
-       ('Kahverengi');
 
 --Delete Brands
 --Delete Cars
 --Delete Colors
+
+--Delete Users
+--Delete Customers

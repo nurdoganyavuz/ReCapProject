@@ -55,13 +55,16 @@ namespace Core.Utilities.Helper
             string fileExtension = ff.Extension;
 
            
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
+            var uniqueFileName = Guid.NewGuid().ToString("N") + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
 
             string path = Environment.CurrentDirectory + @"\wwwroot\Images";
 
             string result = $@"{path}\{uniqueFileName}";
 
-            return result; 
+            //string resultPath = $"{path}{result}";
+
+            //return resultPath; 
+            return result;
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -25,10 +26,10 @@ namespace ConsoleUI
             Car car4 = new Car() { BrandId = 4, ColorId = 2, CarName = "GLK", DailyPrice = 1500, Description = "Otomatik", ModelYear = "2019" };
             Brand brand = new Brand() { BrandName = "Hyundai" };
             Color color = new Color() { ColorName = "Silver"};
-            User user = new User() { UserFirstName = "Engin", UserLastName = "Demiroğ", Email = "engin.demirog@gmail.com", Password = "cıplakclasskalmasın" };
+            //User user = new User() { UserFirstName = "Engin", UserLastName = "Demiroğ", Email = "engin.demirog@gmail.com", Password = "cıplakclasskalmasın" };
             Rental rental = new Rental() {CarId = 1, CustomerId = 4, RentDate = new DateTime(2021, 4, 4), ReturnDate = new DateTime(2021, 4, 14)};
             Rental rental1 = new Rental() { CarId = 2, CustomerId = 4, RentDate = new DateTime(2021, 5, 6), ReturnDate = new DateTime(2021, 5, 16) };
-            Customer customer = new Customer() {UserId = (userManager.GetById(2).Data.UserId), CompanyName = "SolidTeam"};
+            Customer customer = new Customer() {UserId = (userManager.GetById(2).Data.Id), CompanyName = "SolidTeam"};
 
 
             Console.WriteLine("==========USER CRUD OPERATION TEST==========");
