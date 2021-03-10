@@ -2,6 +2,9 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,20 +24,23 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-        [SecuredOperation("car.add, admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("car.add, admin")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
                 _carDal.Add(car);
                 return new SuccessResult(Messages.CarAddedMessage);    
         }
-
+        [SecuredOperation("car.delete, admin")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeletedMessage);
         }
-
+        [CacheAspect]
+        [PerformanceAspect(10)]
         public IDataResult<List<Car>> GetAll()
         {
             //business conditition/statements blocks
@@ -50,12 +56,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max));
         }
-
+        [CacheAspect]
         public IDataResult<Car> GetById(int id) //ıd'si verilen aracı getirir.
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
         }
-
+        [CacheAspect]
+        [PerformanceAspect(10)]
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             if (DateTime.Now.Hour == 01)
@@ -64,22 +71,31 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByBrandId(int id)  //markaya göre arabaları listeler.
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByColorId(int id) //renge göre arabaları listeler.
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
-
+        [SecuredOperation("car.update, admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
                 _carDal.Update(car);
                 return new SuccessResult(Messages.UpdatedMessage);
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Car car)
+        {
+            _carDal.Update(car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.Updated);
         }
     }
 }

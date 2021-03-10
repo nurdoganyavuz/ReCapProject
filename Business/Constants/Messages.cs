@@ -54,5 +54,7 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Access Token başarıyla oluşturuldu.";
         public static string AccessTokenNotCreated = "Access Token oluşturulamadı.";
         public static string AuthorizationDenied = "Yetkiniz yok.";
+
+        public static string Updated = "Güncelleme tamamlandı";
     }
 }

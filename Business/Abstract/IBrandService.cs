@@ -17,5 +17,7 @@ namespace Business.Abstract
         IDataResult<Brand> GetById(int id);
 
         IDataResult<List<Brand>> GetAllBrands();
+
+        IResult TransactionalOperation(Brand brand);
     }
 }

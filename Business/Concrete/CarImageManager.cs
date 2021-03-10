@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helper;
@@ -26,6 +29,8 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("image.add, admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimitExceded(carImage.CarId));
@@ -43,6 +48,8 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("image.update, admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimitExceded(carImage.CarId), CheckImage(carImage.CarImageId));
@@ -58,7 +65,8 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.CarImageUpdated);
         }
-
+        [SecuredOperation("image.delete, admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             
@@ -67,13 +75,14 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.CarImageDeleted);
         }
-
+        [CacheAspect]
+        [PerformanceAspect(10)]
         public IDataResult<List<CarImage>> GetAll(Expression<Func<CarImage, bool>> filter = null)
         {
 
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
-
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetById(int id)
         {
             var result = _carImageDal.Get(ci => ci.CarId == id);
