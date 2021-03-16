@@ -75,12 +75,12 @@ namespace ConsoleUI
 
             Console.WriteLine("Kiralama Detayları");
 
-            var rentalDetail = rentalManager.GetRentalDetail().Data;
-            foreach (var item in rentalDetail)
-            {
-                Console.WriteLine(item.CarName + " " + item.RentDate + " - " + item.ReturnDate + " tarihleri arasında " + 
-                    item.UserFirstName + " " + item.UserLastName + " tarafından kiralanmıştır.");
-            }
+            //var rentalDetail = rentalManager.GetRentalDetail().Data;
+            //foreach (var item in rentalDetail)
+            //{
+            //    Console.WriteLine(item.CarName + " " + item.RentDate + " - " + item.ReturnDate + " tarihleri arasında " + 
+            //        item.UserFirstName + " " + item.UserLastName + " tarafından kiralanmıştır.");
+            //}
 
             Console.WriteLine("==========CAR CRUD OPERATION TEST==========");
 

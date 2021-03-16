@@ -45,6 +45,7 @@ namespace Business.Constants
         public static string NotFoundImage = "Görsel bulunamadı.";
         public static string CarImageDeleted = "Görsel sistemden silindi";
         public static string CarImageUpdated = "Görsel güncellendi.";
+        public static string DefaultImageMessage = "Arabaya ait görsel bulunmamaktadır";
 
         public static string UserRegistered = "Kullanıcı sisteme kayıt oldu.";
         public static string UserNotFound = "Kullanıcı bulunamadı.";
@@ -54,7 +55,7 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Access Token başarıyla oluşturuldu.";
         public static string AccessTokenNotCreated = "Access Token oluşturulamadı.";
         public static string AuthorizationDenied = "Yetkiniz yok.";
-
         public static string Updated = "Güncelleme tamamlandı";
+
     }
 }

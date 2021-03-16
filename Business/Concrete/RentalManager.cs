@@ -64,7 +64,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
         }
         [CacheAspect]
-        [SecuredOperation("admin, moderator")]
+        //[SecuredOperation("admin, moderator")]
         [PerformanceAspect(10)]
         public IDataResult<List<RentalDetailDto>> GetRentalDetail()
         {

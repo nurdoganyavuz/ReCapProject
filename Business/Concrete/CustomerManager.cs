@@ -39,7 +39,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomerDeletedMessage);
         }
         [CacheAspect]
-        [SecuredOperation("moderator, admin")]
+        //[SecuredOperation("moderator, admin")]
         [PerformanceAspect(10)]
         public IDataResult<List<Customer>> GetAllCustomers()
         {

@@ -58,11 +58,12 @@ namespace Business.Concrete
             {
                 return result;
             }
-
-            carImage.ImagePath = FileHelper.Update(_carImageDal.Get(ci => ci.CarImageId == carImage.CarImageId).ImagePath, file);
+            CarImage oldImage = _carImageDal.Get(ci => ci.CarImageId == carImage.CarImageId);
+            carImage.ImagePath = FileHelper.Update(file, oldImage.ImagePath);
             carImage.ImageUploadDate = DateTime.Now;
+            carImage.CarId = oldImage.CarId;
             _carImageDal.Update(carImage);
-
+            
             return new SuccessResult(Messages.CarImageUpdated);
         }
         [SecuredOperation("image.delete, admin")]
@@ -79,21 +80,14 @@ namespace Business.Concrete
         [PerformanceAspect(10)]
         public IDataResult<List<CarImage>> GetAll(Expression<Func<CarImage, bool>> filter = null)
         {
-
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
         [CacheAspect]
         public IDataResult<List<CarImage>> GetById(int id)
         {
-            var result = _carImageDal.Get(ci => ci.CarId == id);
-            if (result == null)
-            {
-                return new ErrorDataResult<List<CarImage>>(CheckIfCarImageIsNull(id));
-            }
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
+            return new SuccessDataResult<List<CarImage>>(CheckIfCarImageIsNull(id));
         }
-
-
+        
 
         //BUSINESS RULES
         private IResult CheckImageLimitExceded(int carId)
@@ -119,15 +113,17 @@ namespace Business.Concrete
 
         private List<CarImage> CheckIfCarImageIsNull(int carId)
         {
+            string imagePath = @"\Images\default.jpg";
+            var result = _carImageDal.GetAll(ci => ci.CarId == carId);
 
-            bool image = _carImageDal.GetAll(ci => ci.CarId == carId).Any();
-
-            if (image != true)
+            if (result.Any()==false)
             {
-                return new List<CarImage> { new CarImage { CarId = carId, ImageUploadDate = DateTime.Now, ImagePath = @"\wwwroot\Images\default.jpg" } };
+                List<CarImage> carImageList = new List<CarImage>();
+                carImageList.Add(new CarImage { CarId = carId, ImageUploadDate = DateTime.Now, ImagePath = imagePath });
+                return new List<CarImage>(carImageList);
             }
 
-            return null;
+            return result;
         }
 
     }
